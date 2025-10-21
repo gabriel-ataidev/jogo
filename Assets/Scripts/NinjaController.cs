@@ -36,13 +36,22 @@ public class NinjaController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name.Contains("JunkFood"))
+        if (other.gameObject.name.Contains("Fruit 1"))
+        {
+            GameManager.Fruit1Count++;
+            Debug.Log("Fruit 1 coletada! Total: " + GameManager.Fruit1Count);
+
+            if (GameManager.Fruit1Count >= 10)
+            {
+                Debug.Log("Você coletou 10 Fruit 1! Fim de jogo.");
+                StartCoroutine(close());
+            }
+        }
+        else
         {
             animator.enabled = true;
             StartCoroutine(close());
         }
-        else
-            print("Fruit");
         
         Destroy(other.gameObject);
     }
@@ -50,6 +59,7 @@ public class NinjaController : MonoBehaviour
     IEnumerator close()
     {
         yield return new WaitForSeconds(3f);
+        // Encerrar jogo aqui
         Application.Quit();
     }
 }
