@@ -1,50 +1,87 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static int Fruit1Count = 0;
-    public float remainingTime = 60f; // tempo total do jogo
+    public static GameManager Instance;
+
+    public int score = 0;
+    public float remainingTime = 60f;
+
     private bool _gameEnded = false;
+    private bool _timerRunning = false;
+
+    [SerializeField] private TMP_Text timerText;
+    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private int scoreToWin = 10;
+
+    void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+    }
 
     void Update()
     {
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            print("Jogo fechado!");
+            Debug.Log("Jogo fechado!");
             Application.Quit();
         }
     }
-    
-    void Start()
+
+    public void StartTimer()
     {
-        StartCoroutine(GameTimer());
+        if (!_timerRunning && !_gameEnded)
+        {
+            _timerRunning = true;
+            StartCoroutine(GameTimer());
+        }
     }
 
-    private IEnumerator GameTimer()
+    IEnumerator GameTimer()
     {
-        while (remainingTime > 0)
+        while (remainingTime > 0 && !_gameEnded)
         {
-            yield return new WaitForSeconds(1f);  // espera 1 segundo
-
-            remainingTime -= 1f;                  // decrementa 1 segundo
-
-            // Debug log atualizado a cada 1 segundo
-            Debug.Log($"Tempo restante: {remainingTime:F0} segundos | gameEnded: {_gameEnded}");
+            yield return new WaitForSeconds(1f);
+            remainingTime -= 1f;
+            if (timerText != null)
+                timerText.text = $"{remainingTime:F0}s";
         }
 
         remainingTime = 0;
         EndGame();
     }
-    
-    public void EndGame()
+
+    public void AddScore(int value)
     {
-        if (!_gameEnded)
+        if (_gameEnded) return;
+
+        score += value;
+        if (scoreText != null)
+            scoreText.text = score.ToString();
+
+        if (score >= scoreToWin)
         {
             _gameEnded = true;
-            Debug.Log("O tempo acabou! Fim de jogo.");
-            Application.Quit();
+            PhaseFeedbackManager.Instance.ShowSuccessCSharp();
         }
+    }
+
+    public void EndGame()
+    {
+        if (_gameEnded) return;
+        _gameEnded = true;
+        Time.timeScale = 0;
+        Debug.Log("O tempo acabou! Fim de jogo.");
+    }
+
+    public bool IsGameEnded()
+    {
+        return _gameEnded;
     }
 }

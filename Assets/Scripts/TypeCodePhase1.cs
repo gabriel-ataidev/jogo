@@ -1,25 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class TypeWriterEffect : MonoBehaviour
 {
-    [Header("Referências - Textos")]
-    [SerializeField] private TMP_Text codeText;      // texto do código
-    [SerializeField] private TMP_Text timerText;     // texto do timer (antes era o título)
-    [SerializeField] private TMP_Text scoreText;     // texto da pontuação
-
-    [Header("Referências - Painéis")]
-    [SerializeField] private GameObject codePanel;   // painel de fundo do código
-    [SerializeField] private GameObject hudPanel;    // novo painel da fase/pontuação
-
-    [Header("Configurações")]
+    [SerializeField] private TMP_Text codeText;
+    [SerializeField] private GameObject codePanel;
+    [SerializeField] private GameObject hudPanel;
     [SerializeField] private float typingSpeed = 0.03f;
-    [SerializeField] private float displayTime = 3f; // tempo antes de trocar HUD
-    [SerializeField] private int tempoInicial = 60;  // tempo inicial do timer (segundos)
-
-    private int pontuacao = 0;
-    private bool contando = false;
+    [SerializeField] private float displayTime = 1f;
 
     private string fullCode =
 @"<color=#569CD6>if</color> (<color=#9CDCFE>linguagem</color>.equals(<color=#CE9178>""Orientada_A_Objetos""</color>)) {
@@ -30,18 +20,16 @@ public class TypeWriterEffect : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 0;
         hudPanel.SetActive(false);
-        timerText.gameObject.SetActive(false);
-        scoreText.gameObject.SetActive(false);
         StartCoroutine(TypeCode());
-
     }
 
     private IEnumerator TypeCode()
     {
         codeText.text = "";
-
         int i = 0;
+
         while (i < fullCode.Length)
         {
             if (fullCode[i] == '<')
@@ -57,51 +45,17 @@ public class TypeWriterEffect : MonoBehaviour
 
             codeText.text += fullCode[i];
             i++;
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSecondsRealtime(typingSpeed);
         }
 
-        yield return new WaitForSeconds(displayTime);
+        yield return new WaitForSecondsRealtime(displayTime);
+        codeText.text += "\n\n<color=#D4D4D4>Pressione <b>Espaço</b> para começar...</color>";
+        yield return new WaitUntil(() => Keyboard.current.spaceKey.wasPressedThisFrame);
 
-        ShowPhaseHUD();
-    }
-
-    private void ShowPhaseHUD()
-    {
-        codeText.gameObject.SetActive(false);
-        codePanel.SetActive(false);
-
+        Time.timeScale = 1;
         hudPanel.SetActive(true);
-        timerText.gameObject.SetActive(true);
-        scoreText.gameObject.SetActive(true);
-
-        StartCoroutine(TimerContagem());
-        AtualizarPontuacao();
-    }
-
-    private IEnumerator TimerContagem()
-    {
-        int tempoRestante = tempoInicial;
-        contando = true;
-
-        while (tempoRestante >= 0)
-        {
-            timerText.text = $"{tempoRestante}s";
-            yield return new WaitForSeconds(1f);
-            tempoRestante--;
-        }
-
-        contando = false;
-        timerText.text = "⏱️ Tempo Esgotado!";
-    }
-
-    public void AdicionarPonto()
-    {
-        pontuacao++;
-        AtualizarPontuacao();
-    }
-
-    private void AtualizarPontuacao()
-    {
-        scoreText.text = pontuacao.ToString();
+        codePanel.SetActive(false);
+        codeText.gameObject.SetActive(false);
+        GameManager.Instance.StartTimer();
     }
 }

@@ -1,65 +1,43 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 
 public class NinjaController : MonoBehaviour
 {
-    Rigidbody2D _rb;
-    float xDir;
-    [SerializeField] float xSpeed;
-    Animator animator;
-    
-    void Awake() 
+    [SerializeField] private float xSpeed = 8f;
+    private Rigidbody2D _rb;
+    private float xDir;
+
+    void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
     }
-    
+
     void OnMove(InputValue inputValue)
     {
         xDir = inputValue.Get<Vector2>().x;
     }
-    void Movimentar()
-    {
-        _rb.linearVelocityX = xDir * xSpeed * Time.deltaTime;
-    }
-    
+
     void FixedUpdate()
     {
-        Movimentar();
+        Vector2 velocity = _rb.linearVelocity;
+        velocity.x = xDir * xSpeed;
+        _rb.linearVelocity = velocity;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name.Contains("Fruit 1"))
-        {
-            GameManager.Fruit1Count++;
-            Debug.Log("Fruit 1 coletada! Total: " + GameManager.Fruit1Count);
+        if (GameManager.Instance.IsGameEnded())
+            return;
 
-            if (GameManager.Fruit1Count >= 10)
-            {
-                Debug.Log("Você coletou 10 Fruit 1! Fim de jogo.");
-                StartCoroutine(close());
-            }
-        }
-        else
-        {
-            animator.enabled = true;
-            StartCoroutine(close());
-        }
-        
+        string name = other.gameObject.name;
+
+        if (name.Contains("CSharp"))
+            GameManager.Instance.AddScore(1);
+        else if (name.Contains("JavaScript"))
+            PhaseFeedbackManager.Instance.ShowErrorJS();
+        else if (name.Contains("Python"))
+            PhaseFeedbackManager.Instance.ShowErrorPython();
+
         Destroy(other.gameObject);
-    }
-
-    IEnumerator close()
-    {
-        yield return new WaitForSeconds(3f);
-        // Encerrar jogo aqui
-        Application.Quit();
     }
 }
