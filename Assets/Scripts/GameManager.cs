@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private TMP_Text scoreText;
-    [SerializeField] private int scoreToWin = 10;
+    [SerializeField] private int scoreToWin = 3;
 
     void Awake()
     {
@@ -27,10 +27,16 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current != null)
         {
-            Debug.Log("Jogo fechado!");
-            Application.Quit();
+            if (Keyboard.current.sKey.wasPressedThisFrame)
+            {
+                Debug.Log("Jogo fechado!");
+                Application.Quit();
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            }
         }
     }
 
@@ -65,10 +71,35 @@ public class GameManager : MonoBehaviour
         if (scoreText != null)
             scoreText.text = score.ToString();
 
+        Debug.Log($"Score atual: {score}/{scoreToWin}");
+
         if (score >= scoreToWin)
         {
             _gameEnded = true;
-            PhaseFeedbackManager.Instance.ShowSuccessCSharp();
+            Debug.Log("Atingiu score necessário! Mostrando tela de sucesso...");
+            
+            if (PhaseManager.Instance == null)
+            {
+                Debug.LogError("PhaseManager.Instance é null!");
+                return;
+            }
+            
+            PhaseData currentPhase = PhaseManager.Instance.GetCurrentPhase();
+            
+            if (currentPhase == null)
+            {
+                Debug.LogError("currentPhase é null!");
+                return;
+            }
+            
+            if (PhaseFeedbackManager.Instance == null)
+            {
+                Debug.LogError("PhaseFeedbackManager.Instance é null!");
+                return;
+            }
+            
+            Debug.Log($"Chamando ShowSuccess para fase: {currentPhase.linguagem}");
+            PhaseFeedbackManager.Instance.ShowSuccess(currentPhase);
         }
     }
 
@@ -78,10 +109,33 @@ public class GameManager : MonoBehaviour
         _gameEnded = true;
         Time.timeScale = 0;
         Debug.Log("O tempo acabou! Fim de jogo.");
+        
+        // Mostrar game over por tempo esgotado
+        if (PhaseManager.Instance != null && PhaseFeedbackManager.Instance != null)
+        {
+            PhaseData currentPhase = PhaseManager.Instance.GetCurrentPhase();
+            if (currentPhase != null)
+            {
+                PhaseFeedbackManager.Instance.ShowTimeOut(currentPhase);
+            }
+        }
     }
 
     public bool IsGameEnded()
     {
         return _gameEnded;
+    }
+
+    public void ResetForNextPhase()
+    {
+        score = 0;
+        remainingTime = 60f;
+        _gameEnded = false;
+        _timerRunning = false;
+        
+        if (scoreText != null)
+            scoreText.text = "0";
+        if (timerText != null)
+            timerText.text = "60s";
     }
 }

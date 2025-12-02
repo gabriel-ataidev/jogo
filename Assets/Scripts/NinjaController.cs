@@ -26,17 +26,38 @@ public class NinjaController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (GameManager.Instance.IsGameEnded())
+        PhaseData currentPhase = PhaseManager.Instance.GetCurrentPhase();
+        if (currentPhase == null)
+        {
+            Debug.LogError("currentPhase é null!");
             return;
+        }
 
-        string name = other.gameObject.name;
+        string objectName = other.gameObject.name.ToLower();
+        string correctLanguage = currentPhase.linguagem.ToLower().Replace(" ", "").Replace("(", "").Replace(")", "");
 
-        if (name.Contains("CSharp"))
+        Debug.Log($"Coletado: {objectName} | Correto: {correctLanguage}");
+
+        // Verificar se o objeto coletado é a linguagem correta
+        if (objectName.Contains(correctLanguage))
+        {
+            // Acertou - adiciona ponto
+            Debug.Log("Acertou!");
             GameManager.Instance.AddScore(1);
-        else if (name.Contains("JavaScript"))
-            PhaseFeedbackManager.Instance.ShowErrorJS();
-        else if (name.Contains("Python"))
-            PhaseFeedbackManager.Instance.ShowErrorPython();
+        }
+        else
+        {
+            // Errou - game over
+            Debug.Log("Errou!");
+            if (PhaseFeedbackManager.Instance != null)
+            {
+                PhaseFeedbackManager.Instance.ShowGameOver(currentPhase);
+            }
+            else
+            {
+                Debug.LogError("PhaseFeedbackManager.Instance é null!");
+            }
+        }
 
         Destroy(other.gameObject);
     }
