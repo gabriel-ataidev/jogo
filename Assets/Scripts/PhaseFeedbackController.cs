@@ -353,7 +353,7 @@ Fase {PhaseManager.Instance.GetCurrentPhaseNumber()}/{PhaseManager.Instance.GetT
             gameOverDescription.text = $@"<b>Você pegou a linguagem errada!</b>
 
 <color=#FFFFFF>A   linguagem correta era:</color>
-<b><size=32>{phase.linguagem}</size></b>
+<b><size=52>{phase.linguagem}</size></b>
 
 <color=#FFFFFF>Informações:</color>
 {phase.descricao}
@@ -381,7 +381,7 @@ Pressione <b>S</b> para sair do jogo</color>";
             gameOverDescription.text = $@"<b>O tempo acabou!</b>
 
 <color=#FFFFFF>Você estava jogando com:</color>
-<b><size=32>{phase.linguagem}</size></b>
+<b><size=52>{phase.linguagem}</size></b>
 
 <color=#FFFFFF>Informações:</color>
 {phase.descricao}

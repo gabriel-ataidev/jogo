@@ -66,10 +66,10 @@ public class HUDController : MonoBehaviour
     {
         // Aplicar estilo amarelo e preto aos títulos (sem emojis para evitar problemas de fonte)
         if (timerTitle != null)
-            timerTitle.text = "<color=#000>TEMPO</color>";
+            timerTitle.text = "<color=#fff>TEMPO</color>";
         
         if (scoreTitle != null)
-            scoreTitle.text = "<color=#000>PONTOS</color>";
+            scoreTitle.text = "<color=#fff>PONTOS</color>";
     }
 
     public void UpdatePhaseText()
