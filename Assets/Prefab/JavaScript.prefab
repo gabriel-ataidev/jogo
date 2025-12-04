@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6180845471710040357, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
       propertyPath: m_Name
-      value: Fruit 3
+      value: JavaScript
       objectReference: {fileID: 0}
     - target: {fileID: 6202370054770630570, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
       propertyPath: m_Sprite
@@ -19,6 +19,18 @@ PrefabInstance:
     - target: {fileID: 6202370054770630570, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380992437737252244, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380992437737252244, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.8584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380992437737252244, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0.85634357
       objectReference: {fileID: 0}
     - target: {fileID: 7478294018271981903, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
       propertyPath: m_LocalScale.x
@@ -34,11 +46,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7478294018271981903, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.997
       objectReference: {fileID: 0}
     - target: {fileID: 7478294018271981903, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.195
       objectReference: {fileID: 0}
     - target: {fileID: 7478294018271981903, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
       propertyPath: m_LocalPosition.z

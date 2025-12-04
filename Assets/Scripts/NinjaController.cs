@@ -9,7 +9,12 @@ public class NinjaController : MonoBehaviour
     [SerializeField] private bool useScreenBounds = true;
     [SerializeField] private float minX = -2.5f;
     [SerializeField] private float maxX = 2.5f;
-    [SerializeField] private float boundsPadding = 0.3f; // Margem das bordas
+    [SerializeField] private float boundsPadding = 0.3f;
+    
+    [Header("Efeitos Sonoros")]
+    [SerializeField] private AudioClip sfxCorrect;
+    [SerializeField] private AudioClip sfxWrong;
+    [SerializeField] [Range(0f, 1f)] private float sfxVolume = 1f;
     
     private Rigidbody2D _rb;
     private float xDir;
@@ -97,12 +102,14 @@ public class NinjaController : MonoBehaviour
         {
             // Acertou - adiciona ponto
             Debug.Log("Acertou!");
+            PlaySound(sfxCorrect);
             GameManager.Instance.AddScore(1);
         }
         else
         {
             // Errou - game over
             Debug.Log("Errou!");
+            PlaySound(sfxWrong);
             if (PhaseFeedbackManager.Instance != null)
             {
                 PhaseFeedbackManager.Instance.ShowGameOver(currentPhase);
@@ -114,5 +121,13 @@ public class NinjaController : MonoBehaviour
         }
 
         Destroy(other.gameObject);
+    }
+
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            AudioSource.PlayClipAtPoint(clip, transform.position, sfxVolume);
+        }
     }
 }
