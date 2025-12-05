@@ -28,11 +28,46 @@ public class PhaseManager : MonoBehaviour
     {
         allPhases = new List<PhaseData>
         {
-            new PhaseData("Python", "Com sua tipagem dinâmica, é amplamente utilizada no campo de Data Science e Machine Learning", 1991),
-            new PhaseData("JavaScript", "É capaz de ser tanto uma linguagem interpretada para o navegador quanto uma linguagem de servidor", 1995),
-            new PhaseData("C#", "Linguagem orientada a objetos, criada pela Microsoft como parte da plataforma .NET", 2000),
-            new PhaseData("Go", "Criada pelo Google para executar muitas tarefas ao mesmo tempo de forma eficiente (concorrência)", 2009),
-            new PhaseData("Swift", "Linguagem principal da Apple para desenvolver aplicativos nativos de alta performance para iOS e macOS", 2014)
+            new PhaseData(
+                "Python",
+                "Usa indentação como parte da sintaxe - nada de chaves {} aqui!",
+                "Interpretada e de alto nível, com tipagem dinâmica. Foco em legibilidade e rapidez de desenvolvimento.",
+                "Data Science, IA e Automação",
+                "O nome é uma homenagem ao grupo de comédia britânico Monty Python, e não à cobra!",
+                1991
+            ),
+            new PhaseData(
+                "JavaScript",
+                "A única linguagem que roda nativamente em todos os navegadores!",
+                "Linguagem interpretada, multiparadigma, com tipagem dinâmica e event-driven.",
+                "Web Frontend, Mobile, Backend",
+                "Foi criada por Brendan Eich em apenas 10 dias, e seu nome original era Mocha.",
+                1995
+            ),
+            new PhaseData(
+                "C#",
+                "É a estrela do ecossistema .NET, concebida pela Microsoft como uma resposta ao Java.",
+                "Compilada, Orientada a Objetos, com tipagem estática e forte. Tem Garbage Collector.",
+                "Games (como esse aqui), Desktop Windows, Backend .NET",
+                "O símbolo # representa quatro sinais de + (C++++), indicando uma evolução do C++.",
+                2000
+            ),
+            new PhaseData(
+                "Go",
+                "Sua concorrência é leve e eficiente, usando rotinas para gerenciar milhares de threads simultaneamente.",
+                "Compilada e estaticamente tipada, focada em simplicidade e alta performance.",
+                "Infra, Cloud e Microservices (Docker, Kubernetes)",
+                "O projeto sigiloso foi iniciado dentro do Google por lendas da computação, incluindo Ken Thompson (criador do UNIX e C).",
+                2009
+            ),
+            new PhaseData(
+                "Swift",
+                "Seus Optionals eliminam erros de ponteiro nulo (ou poderia dizer nil) - segurança em primeiro lugar!",
+                "Moderna, de código aberto, com tipagem forte e focada em performance e sintaxe limpa.",
+                "Apps iOS, macOS, watchOS e tvOS",
+                "Foi apresentada ao público em 2014, mas estava em desenvolvimento às escondidas na Apple desde 2010 para substituir Objective-C.",
+                2014
+            )
         };
 
         ShufflePhases();

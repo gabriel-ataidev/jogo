@@ -89,12 +89,10 @@ public class HUDController : MonoBehaviour
 
         int phaseNumber = PhaseManager.Instance.GetCurrentPhaseNumber();
         int totalPhases = PhaseManager.Instance.GetTotalPhases();
-        
-        Debug.Log($"Atualizando HUD: Fase {phaseNumber}/{totalPhases} - {currentPhase.linguagem}");
-        
+                
         if (phaseText != null)
         {
-            phaseText.text = $"<color=#FFFFFF><b>FASE {phaseNumber}/{totalPhases}</b></color> \n<color=#FFFFFF>{currentPhase.linguagem}</color>";
+            phaseText.text = $"<color=#FFFFFF><b>FASE {phaseNumber}/{totalPhases}</b></color>";
         }
 
         // Atualizar descrição da linguagem

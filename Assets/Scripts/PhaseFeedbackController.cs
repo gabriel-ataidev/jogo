@@ -122,24 +122,22 @@ public class PhaseFeedbackManager : MonoBehaviour
         {
             string text = "";
 
-            text += $"<size=64>{GetPromotionMessage()}</size>\n\n";
+            text += $"<size=48>{GetPromotionMessage()}</size>\n\n";
 
-            text += $"<color=#AAAAAA>Linguagem dominada:</color>\n";
-            text += $"<b><size=80><color=#00FF88>{phase.linguagem}</color></size></b>\n";
-            text += $"<color=#888888>{phase.descricao}</color></size>\n\n";
+            text += $"<b><size=72><color=#00FF88>{phase.linguagem}</color></size></b> ";
+            text += $"<size=32><color=#FFCC00>({phase.anoDeLancamento})</color></size>\n\n";
+            
+            text += $"<color=#AAAAAA>{phase.descricao}</color>\n\n";
+            
+            text += $"<color=#00AAFF>Mercado:</color> <color=#FFFFFF>{phase.aplicacao}</color>\n";
+            text += $"<color=#FF88FF>Curiosidade:</color> <color=#FFFFFF>{phase.curiosidade}</color>\n\n";
 
-            // Progresso
-            text += $"<color=#FFCC00>Fase {currentPhase}/{totalPhases} concluída!</color>\n\n";
+            text += $"<color=#FFCC00>Fase {currentPhase}/{totalPhases}</color>\n\n";
 
-            // Instrução
             if (isLastPhase)
-            {
-                text += "<color=#FFFFFF>Pressione <b>ESPAÇO</b> para jogar novamente</color>";
-            }
+                text += "<color=#888888>ESPAÇO = jogar novamente</color>";
             else
-            {
-                text += "<color=#FFFFFF>Pressione <b>ESPAÇO</b> para o próximo desafio</color>";
-            }
+                text += "<color=#888888>ESPAÇO = próximo desafio</color>";
 
             successDescription.text = text;
         }
@@ -164,19 +162,18 @@ public class PhaseFeedbackManager : MonoBehaviour
 
         if (gameOverDescription != null)
         {
-            string text = "<size=64><b>Você foi desligado da empresa!</b></size>\n\n";
-            text += "<color=#FF6666>\"Passe na sala do RH e pegue suas coisas...\"</color>\n\n";
-            
-            text += $"<color=#AAAAAA>Motivo da demissão:</color>\n";
-            text += $"Confundiu as linguagens de programação!\n\n";
+            string text = "<size=48><b>Passe no RH e pegue suas coisas...</b></size>\n\n";
             
             text += $"<color=#AAAAAA>A linguagem correta era:</color>\n";
-            text += $"<b><size=80><color=#00AAFF>{phase.linguagem}</color></size></b>\n\n";
+            text += $"<b><size=72><color=#00AAFF>{phase.linguagem}</color></size></b> ";
+            text += $"<size=32><color=#FFCC00>({phase.anoDeLancamento})</color></size>\n\n";
             
-            text += $"<color=#888888>{phase.descricao}</color></size>\n\n";
+            text += $"<color=#AAAAAA>{phase.descricao}</color>\n\n";
+            
+            text += $"<color=#00AAFF>Mercado:</color> <color=#FFFFFF>{phase.aplicacao}</color>\n";
+            text += $"<color=#FF88FF>Curiosidade:</color> <color=#FFFFFF>{phase.curiosidade}</color>\n\n";
 
-            text += "<color=#FFFFFF>Pressione <b>ESPAÇO</b> para tentar recontratação\n";
-            text += "Pressione <b>S</b> para desistir da carreira</color>";
+            text += "<color=#888888>ESPAÇO = tentar de novo | S = sair</color>";
 
             gameOverDescription.text = text;
         }
@@ -200,16 +197,18 @@ public class PhaseFeedbackManager : MonoBehaviour
 
         if (gameOverDescription != null)
         {
-            string text = "<size=64><b>Você perdeu o deadline!</b></size>\n\n";
-            text += "<color=#FF6666>\"O cliente cancelou o contrato...\"</color>\n\n";
+            string text = "<size=48><b>O cliente cancelou o contrato...</b></size>\n\n";
 
             text += $"<color=#AAAAAA>Você estava trabalhando com:</color>\n";
-            text += $"<b><size=80><color=#00AAFF>{phase.linguagem}</color></size></b>\n\n";
+            text += $"<b><size=72><color=#00AAFF>{phase.linguagem}</color></size></b> ";
+            text += $"<size=32><color=#FFCC00>({phase.anoDeLancamento})</color></size>\n\n";
 
-            text += $"<color=#888888>{phase.descricao}</color></size>\n\n";
+            text += $"<color=#AAAAAA>{phase.descricao}</color>\n\n";
 
-            text += "<color=#FFFFFF>Pressione <b>ESPAÇO</b> para tentar de novo\n";
-            text += "Pressione <b>S</b> para desistir</color>";
+            text += $"<color=#00AAFF>Mercado:</color> <color=#FFFFFF>{phase.aplicacao}</color>\n";
+            text += $"<color=#FF88FF>Curiosidade:</color> <color=#FFFFFF>{phase.curiosidade}</color>\n\n";
+
+            text += "<color=#888888>ESPAÇO = tentar de novo | S = sair</color>";
 
             gameOverDescription.text = text;
         }

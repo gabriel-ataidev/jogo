@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 268384407}
   - component: {fileID: 268384406}
   m_Layer: 0
-  m_Name: FruitSpawner
+  m_Name: LanguageSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -555,11 +555,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e2bd48baf2a3f4ba413b08709b328a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitPrefabs:
-  - {fileID: 5580891972721206917, guid: 9b3b910dd36a8bc479a69c7df13f5e3b, type: 3}
-  - {fileID: 459561407659229622, guid: e68cddabae8b97b4dbacf693a8b76450, type: 3}
+  languagePrefabs:
   - {fileID: 6180845471710040357, guid: 624bdd703018d3041bce0a80b2cb929a, type: 3}
   - {fileID: 6180845471710040357, guid: 47fc97b444f7e584fbae880e24776abf, type: 3}
+  - {fileID: 459561407659229622, guid: e68cddabae8b97b4dbacf693a8b76450, type: 3}
+  - {fileID: 5580891972721206917, guid: 9b3b910dd36a8bc479a69c7df13f5e3b, type: 3}
   - {fileID: 6180845471710040357, guid: aec4236e081e76345939bdc59306ff0d, type: 3}
 --- !u!50 &268384407
 Rigidbody2D:
@@ -1656,10 +1656,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  remainingTime: 30
+  remainingTime: 60
   timerText: {fileID: 0}
   scoreText: {fileID: 0}
-  scoreToWin: 2
+  scoreToWin: 5
 --- !u!4 &866357576
 Transform:
   m_ObjectHideFlags: 0
@@ -2206,11 +2206,11 @@ Transform:
   m_GameObject: {fileID: 1220655528}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.261101, z: -473.49945}
-  m_LocalScale: {x: 5.2611046, y: 5.2611046, z: 5.2611046}
+  m_LocalPosition: {x: 0, y: 0.94519687, z: 85.06771}
+  m_LocalScale: {x: 0.054803174, y: 0.054803174, z: 0.054803174}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2127257081}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1257535099
 GameObject:
@@ -2277,6 +2277,8 @@ MonoBehaviour:
   hudPanel: {fileID: 943175380}
   typingSpeed: 0.03
   displayTime: 1
+  sfxTyping: {fileID: 8300000, guid: a8eb196a3f5c14803b351f551d980f87, type: 3}
+  typingVolume: 0.4
 --- !u!4 &1408890863
 Transform:
   m_ObjectHideFlags: 0
@@ -3077,7 +3079,6 @@ RectTransform:
   - {fileID: 1408890863}
   - {fileID: 4694050}
   - {fileID: 1516362134}
-  - {fileID: 1220655531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3097,3 +3098,4 @@ SceneRoots:
   - {fileID: 866357576}
   - {fileID: 549555076}
   - {fileID: 2127257081}
+  - {fileID: 1220655531}
