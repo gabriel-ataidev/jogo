@@ -50,21 +50,21 @@ public class PhaseFeedbackManager : MonoBehaviour
 
         if (waitingForInput && panelGameOver != null && panelGameOver.activeSelf)
         {
-            if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                RestartCurrentPhase();
+                if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
+                {
+                    RestartCurrentPhase();
+                }
+                else if (UnityEngine.InputSystem.Keyboard.current.sKey.wasPressedThisFrame)
+                {
+                    QuitGame();
+                }
             }
-            else if (UnityEngine.InputSystem.Keyboard.current.sKey.wasPressedThisFrame)
+            
+            if (panelSuccess != null && panelSuccess.activeSelf)
             {
-                QuitGame();
-            }
-        }
-
-        if (panelSuccess != null && panelSuccess.activeSelf)
-        {
-            if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                NextPhase();
+                if (UnityEngine.InputSystem.Keyboard.current.spaceKey.wasPressedThisFrame)
+                {
+                    NextPhase();
             }
         }
     }
@@ -98,7 +98,7 @@ public class PhaseFeedbackManager : MonoBehaviour
             Debug.LogError("PanelSuccess não está configurado no Inspector!");
             return;
         }
-
+        
         Time.timeScale = 0;
         panelSuccess.SetActive(true);
 
@@ -140,11 +140,11 @@ public class PhaseFeedbackManager : MonoBehaviour
                 text += "<color=#888888>ESPAÇO = próximo desafio</color>";
 
             successDescription.text = text;
-        }
+    }
     }
 
     // ==================== GAME OVER ====================
-    
+
     public void ShowGameOver(PhaseData phase)
     {
         if (panelGameOver == null)
@@ -163,13 +163,13 @@ public class PhaseFeedbackManager : MonoBehaviour
         if (gameOverDescription != null)
         {
             string text = "<size=48><b>Passe no RH e pegue suas coisas...</b></size>\n\n";
-            
+
             text += $"<color=#AAAAAA>A linguagem correta era:</color>\n";
             text += $"<b><size=72><color=#00AAFF>{phase.linguagem}</color></size></b> ";
             text += $"<size=32><color=#FFCC00>({phase.anoDeLancamento})</color></size>\n\n";
-            
+
             text += $"<color=#AAAAAA>{phase.descricao}</color>\n\n";
-            
+
             text += $"<color=#00AAFF>Mercado:</color> <color=#FFFFFF>{phase.aplicacao}</color>\n";
             text += $"<color=#FF88FF>Curiosidade:</color> <color=#FFFFFF>{phase.curiosidade}</color>\n\n";
 
